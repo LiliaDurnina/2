@@ -13,20 +13,30 @@ const CharactersPage = () => {
   const charactersPerPage = 12;
 
   const fetchCharacters = async () => {
-    setLoading(true);
-    setError(null);
-    try {
-      const res = await fetch("https://hp-api.onrender.com/api/characters");
-      if (!res.ok) throw new Error("Failed to fetch characters");
-      const data: Character[] = await res.json();
-      setCharacters(data);
-      setCurrentIndex(charactersPerPage);
-    } catch (e: unknown) {
-      setError(e.message);
-    } finally {
-      setLoading(false);
+  setLoading(true);
+  setError(null);
+
+  try {
+    const res = await fetch("https://hp-api.onrender.com/api/characters");
+    if (!res.ok) throw new Error("Failed to fetch characters");
+
+    const data: Character[] = await res.json();
+    setCharacters(data);
+    setCurrentIndex(charactersPerPage);
+
+  } catch (e: unknown) {
+
+    if (e instanceof Error) {
+      setError(e.message);     
+    } else {
+      setError(String(e));     
     }
-  };
+
+  } finally {
+    setLoading(false);
+  }
+};
+
 
   useEffect(() => {
     fetchCharacters();

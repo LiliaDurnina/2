@@ -5,7 +5,7 @@ import HomePage from "../pages/HomePage"
 
 export default function AppRouter() {
 return (
-<BrowserRouter>
+<BrowserRouter basename="/2">
 <Routes>
 <Route path="/" element={<HomePage />} />
 <Route path="/characters" element={<CharactersPage />} />
